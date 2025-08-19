@@ -6,7 +6,7 @@ dev:
 	air
 
 build:
-	go build -o $(APP_NAME).exe $(CMD_DIR)
+	go build -o build/$(APP_NAME).exe $(CMD_DIR)
 
 run:
 	go run $(CMD_DIR)
