@@ -27,12 +27,12 @@ A windows CLI application to manage and open groups of apps automatically. Built
 
 1. Clone the repository:
     ```bash
-    git clone <repo-url>
-    cd autoappopener/go
+    git clone https://github.com/Rithwik0604/auto-app-opener.git
     ```
 2. Build and run:
     ```bash
-    make run
+    make build
+    ./build/autoappopener.exe
     ```
     Or directly:
     ```bash
