@@ -19,9 +19,9 @@ A windows CLI application to manage and open groups of apps automatically. Built
 
 ### Installation
 
-#### Executable
+##### Executable
 
-    Install the autoappopener.exe and run it. That's all. To run it from anywhere in a terminal, add it your path.
+-   Install the [autoappopener.exe](https://github.com/Rithwik0604/auto-app-opener/blob/845e4e2a46007e29c5d4f2ee99f98ae6479c85e8/build/autoappopener.exe) and run it. To run it from anywhere in a terminal, add it your path.
 
 #### Manual
 
