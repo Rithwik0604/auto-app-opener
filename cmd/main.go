@@ -30,7 +30,7 @@ func main() {
 
 	ui.InitSpinner.Action(initApp).Run()
 
-	runFetchForm()
+	runFetchForm(false)
 
 	noApps := len(config.Apps)
 	noGroups := len(config.Groups)
@@ -50,12 +50,16 @@ func initApp() {
 	isInit = storage.InitialiseStorage()
 }
 
-func fetch() {
+func fetch(force bool) {
 	err := storage.ReadStorage(&config)
 	if err != nil {
 		panic(err)
 	}
-	if isInit || len(config.Apps) == 0 {
+
+	// run if it is just initialised or forced(called) by user
+	shouldFetch := isInit || force
+
+	if shouldFetch {
 		if err := data.RetrieveAppsPowershell(&config); err != nil {
 			log.Fatalln(err)
 		}
@@ -63,8 +67,8 @@ func fetch() {
 	}
 }
 
-func runFetchForm() {
-	ui.FetchSpinner.Action(fetch).Run()
+func runFetchForm(force bool) {
+	ui.FetchSpinner.Action(func() { fetch(force) }).Run()
 }
 
 func runFirstForm() {
@@ -115,7 +119,7 @@ func firstFormSelection() {
 		manageGroupFormSelection()
 
 	case models.RefetchAppsEnum:
-		runFetchForm()
+		runFetchForm(true)
 		noApps := len(config.Apps)
 		fmt.Printf("Re-fetched all apps. %d apps found\n", noApps)
 		runFirstForm()

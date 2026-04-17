@@ -2,6 +2,9 @@ APP_NAME = autoappopener
 BIN_DIR = tmp
 CMD_DIR = ./cmd/
 
+# tells Make these are not files
+.PHONY: dev build run clean deps
+
 dev:
 	air
 

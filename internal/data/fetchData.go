@@ -3,7 +3,6 @@ package data
 import (
 	"encoding/json"
 	"fmt"
-	"os"
 	"os/exec"
 	"rithwik/auto-app-opener/internal/models"
 )
@@ -15,20 +14,20 @@ func RetrieveAppsPowershell(cfg *models.Config) error {
 	}
 
 	cmd := exec.Command("powershell.exe", "-Command",
-		"Get-StartApps | ConvertTo-Json -Depth 2 | Set-Content out.json")
+		"Get-StartApps | ConvertTo-Json")
 
-	if err := cmd.Run(); err != nil {
-		return fmt.Errorf("powershell failed: %w", err)
-	}
-
-	file, err := os.Open("out.json")
+	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		return err
 	}
 
+	if err := cmd.Start(); err != nil {
+		return fmt.Errorf("powershell failed: %s", err.Error())
+	}
+
 	var allApps []models.App
 
-	decoder := json.NewDecoder(file)
+	decoder := json.NewDecoder(stdout)
 
 	err = decoder.Decode(&allApps)
 	if err != nil {
@@ -36,12 +35,6 @@ func RetrieveAppsPowershell(cfg *models.Config) error {
 	}
 
 	cfg.Apps = allApps
-
-	file.Close()
-
-	if err = os.Remove("out.json"); err != nil {
-		return err
-	}
 
 	return nil
 }
