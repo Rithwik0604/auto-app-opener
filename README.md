@@ -2,6 +2,9 @@
 
 A windows CLI application to manage and open groups of apps automatically. Built with Go.
 
+<img width="1115" height="628" alt="image" src="https://github.com/user-attachments/assets/3795cc3b-06c4-47cf-97ee-faf7d0c9c0a2" />
+
+
 ## Features
 
 -   Discover installed applications
